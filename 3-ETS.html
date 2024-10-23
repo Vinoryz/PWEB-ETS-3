@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulir Kontak</title>
+    <style>
+      body {
+        background-color: #8bbfe2;
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .error {
+        color: red;
+        font-size: 0.9em;
+      }
+      h2 {
+        text-align: center;
+      }
+      form {
+        max-width: 400px;
+        margin: auto;
+        border: 1px solid #000000;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #fff8e5;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input,
+      textarea {
+        width: calc(100% - 16px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #5aca74;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Formulir Kontak</h2>
+    <form id="contactForm" onsubmit="return validateForm()">
+      <label for="name">Nama:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Masukkan nama Anda"
+      />
+      <div id="nameError" class="error"></div>
+
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        placeholder="Masukkan email Anda"
+      />
+      <div id="emailError" class="error"></div>
+
+      <label for="phone">Nomor Telepon:</label>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        placeholder="Masukkan nomor telepon Anda"
+      />
+      <div id="phoneError" class="error"></div>
+
+      <label for="message">Pesan:</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        placeholder="Tulis pesan Anda di sini"
+      ></textarea>
+      <div id="messageError" class="error"></div>
+
+      <button type="submit">Kirim</button>
+    </form>
+
+    <script>
+      function validateForm() {
+        let isValid = true;
+
+        // Reset error messages
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("phoneError").innerHTML = "";
+        document.getElementById("messageError").innerHTML = "";
+
+        // Validate name
+        const name = document.getElementById("name").value;
+        if (name === "") {
+          document.getElementById("nameError").innerHTML = "Nama harus diisi.";
+          isValid = false;
+        }
+
+        // Validate email
+        const email = document.getElementById("email").value;
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (email === "") {
+          document.getElementById("emailError").innerHTML =
+            "Email harus diisi.";
+          isValid = false;
+        } else if (!emailPattern.test(email)) {
+          document.getElementById("emailError").innerHTML =
+            "Format email tidak valid.<br>Contoh: example@example.com";
+          isValid = false;
+        }
+
+        // Validate phone
+        const phone = document.getElementById("phone").value;
+        const phonePattern = /^08[0-9]{8,10}$/;
+        if (phone === "") {
+          document.getElementById("phoneError").innerHTML =
+            "Nomor telepon harus diisi.";
+          isValid = false;
+        } else if (!phonePattern.test(phone)) {
+          document.getElementById("phoneError").innerHTML =
+            "Nomor telepon tidak valid (harus 10-12 digit).<br>Contoh: 08xxxxxxxx";
+          isValid = false;
+        }
+
+        // Validate message
+        const message = document.getElementById("message").value;
+        if (message === "") {
+          document.getElementById("messageError").innerHTML =
+            "Pesan harus diisi.";
+          isValid = false;
+        }
+
+        return isValid;
+      }
+    </script>
+  </body>
+</html>
